@@ -10,6 +10,10 @@ print(f"ini adalah data ke-0 = {makanan_0}")
 makanan_last = makanan[-1]
 print(f"ini adalah data terakhir = {makanan_last}")
 
+## menampilkan panjang list
+count_makanan = len(makanan)
+print(f"jumlah data di dalam list = {count_makanan}")
+
 ## menambahkan data baru ke list
 # menyelipkan ke tengah
 print(f"data sebelum ditambahkan =\n{makanan}")
