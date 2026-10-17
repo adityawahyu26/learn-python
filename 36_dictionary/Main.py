@@ -1,4 +1,4 @@
-# dictionay atau array assosiatif
+# dictionary atau array assosiatif
 # tidak menggunakan index tapi menggunakan identifier
 data_dict = {
     "kzh":"kazuha",
