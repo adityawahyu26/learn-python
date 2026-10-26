@@ -1,0 +1,1 @@
+print(f"ini adalah __name__ di module venus = {__name__}")
