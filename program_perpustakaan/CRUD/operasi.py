@@ -4,9 +4,17 @@ import time
 
 # Fungsi untuk membuat data awal ke database.
 def create_first_data():
-    penulis = input("penulis: ")
-    judul = input("judul: ")
-    tahun = input("tahun: ")
+    penulis = input("penulis buku: ")
+    judul = input("judul buku: ")
+    while True:
+        try :
+            tahun = int(input("tahun terbit: "))
+            if len(tahun) == 4: 
+                break
+            else:
+                print("Tahun terbit harus terdiri dari 4 digit. Silakan coba lagi.")
+        except ValueError:
+            print("Input tidak valid. Silakan masukkan tahun terbit yang benar.")
 
     # Copy template data yang sudah dibuat di Database.py.
     data = Database.TEMPLATE.copy()
@@ -37,3 +45,24 @@ def read():
     except Exception as e:
         print(f"Error: {e}")
         return False
+
+def create(penulis, judul, tahun):
+    # Copy template data yang sudah dibuat di Database.py.
+    data = Database.TEMPLATE.copy()
+
+    # Isi data utama sesuai input user.
+    data["pk"] = random_number(6)
+    data["date_add"] = time.strftime("%Y-%m-%d-%H-%M-%S%z", time.gmtime())
+    data["penulis"] = penulis + Database.TEMPLATE["penulis"][len(penulis):]
+    data["judul"] = judul + Database.TEMPLATE["judul"][len(judul):]
+    data["tahun"] = tahun
+
+    # Simpan data dalam format CSV agar mudah dibaca kembali oleh split(',').
+    # Catatan: kita menggunakan koma sebagai pemisah antar field.
+    data_str = f"{data['pk']},{data['date_add']},{data['penulis']},{data['judul']},{data['tahun']}\n"
+
+    try:
+        with open(Database.DB_NAME, "a", encoding='utf-8') as file:
+            file.write(data_str)
+    except Exception as e:
+        print(f"Error: {e}")

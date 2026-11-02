@@ -9,7 +9,7 @@ def read_data():
     tahun = "Tahun Terbit"
 
     print("="*110)
-    print(f"{index:^5} | {penulis:<30} | {judul:<50} | {tahun:<10}")
+    print(f"{index:^5} | {judul:<50} | {penulis:<30} | {tahun:<10}")
     print("-"*110)
 
     # data_file berisi list baris dari file. Setiap baris adalah satu record.
@@ -37,6 +37,26 @@ def read_data():
         tahun = data_break[4]
 
         # Tampilkan data dengan format rapi.
-        print(f"{index+1:^5} | {penulis:.30} | {judul:.50} | {tahun:<10}")
+        print(f"{index+1:^5} | {judul:.50} | {penulis:.30} | {tahun:<10}")
 
     print("="*110,"\n")
+
+def create_data():
+    # Meminta input dari pengguna untuk data buku baru.
+    print("\nMasukkan data buku baru:")
+    print("-"*30)
+    penulis = input("Masukkan nama penulis: ")
+    judul = input("Masukkan judul buku: ")
+    while True:
+        try :
+            tahun = int(input("Masukkan tahun terbit: "))
+            if len(str(tahun)) == 4: 
+                break
+            else:
+                print("Tahun terbit harus terdiri dari 4 digit. Silakan coba lagi.")
+        except ValueError:
+            print("Input tidak valid. Silakan masukkan tahun terbit yang benar.")
+   
+    # Memanggil fungsi create dari modul operasi untuk menyimpan data baru.
+    operasi.create(penulis, judul, tahun)
+    print("Data berhasil ditambahkan!\n")

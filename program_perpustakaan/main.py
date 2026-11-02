@@ -39,7 +39,7 @@ if __name__ == "__main__":
         # mencocokan input user dengan beberapa case
         match user_option:
             case "1":CRUD.read_data()
-            case "2":print("ADD DATA")
+            case "2":CRUD.create_data()
             case "3":print("UPDATE DATA")
             case "4":print("DELETE DATA")
 
@@ -47,3 +47,5 @@ if __name__ == "__main__":
         confirm = input("apa anda ingin keluar dari program (y/n): ")
         if confirm == "y" or confirm == "Y":
             break
+
+print("\n[END OF PROGRAM]")
