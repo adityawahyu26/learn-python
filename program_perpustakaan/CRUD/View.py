@@ -1,5 +1,12 @@
 from . import operasi
 
+def input_tahun(prompt):
+    while True:
+        tahun = input(prompt).strip()
+        if tahun.isdigit() and len(tahun) == 4:
+            return tahun
+        print("Tahun terbit harus berupa angka 4 digit. Silakan coba lagi.")
+
 # Fungsi untuk menampilkan semua data buku dari database.
 def read_data():
     data_file = operasi.read()
@@ -60,3 +67,41 @@ def create_data():
     # Memanggil fungsi create dari modul operasi untuk menyimpan data baru.
     operasi.create(penulis, judul, tahun)
     print("Data berhasil ditambahkan!\n")
+
+def update_data():
+    read_data()
+    while True:
+        try:
+           no_buku = int(input("\nmasukan no. buku yang ingin diupdate: "))
+        except ValueError:
+           print("masukkan angka!")
+           continue
+        data_buku = operasi.read(index=no_buku)
+        if data_buku:
+            break
+        print("masukkan input yang valid!")
+        
+    data_break = data_buku.split(',')
+    pk = data_break[0]
+    date_add = data_break[1]
+    penulis = data_break[2]
+    judul = data_break[3]
+    tahun = data_break[4].strip()
+
+    print("\nData Buku")
+    print("-"*30)
+    print(f"1. Judul Buku\t: {judul:.50}")
+    print(f"2. Penulis Buku\t: {penulis:.30}")
+    print(f"3. Tahun Terbit\t: {tahun:.10}")
+
+    user_choice = input("\nData yang ingin diubah: ")
+
+    print("="*30)
+    match user_choice:
+        case "1":judul = input("Judul Buku\t: ")
+        case "2":penulis = input("Penulis Buku\t: ")
+        case "3": tahun = input_tahun("Tahun Terbit\t: ")
+    
+    operasi.update(no_buku,pk,date_add,penulis,judul,tahun)
+
+    print("\nData berhasil diupdate!\n")
