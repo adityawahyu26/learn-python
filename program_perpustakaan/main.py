@@ -40,7 +40,7 @@ if __name__ == "__main__":
         match user_option:
             case "1":CRUD.read_data()
             case "2":CRUD.create_data()
-            case "3":print("UPDATE DATA")
+            case "3":CRUD.update_data()
             case "4":print("DELETE DATA")
 
         # membuat option untuk melanjutkan / menghentikan program
