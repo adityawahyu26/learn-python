@@ -1,6 +1,7 @@
 from . import Database
 from .utility import random_number
 import time
+import os
 
 def _now():
     # waktu lokal + offset zona waktu, contoh: 2026-11-03-09-15-00+0700
@@ -58,7 +59,7 @@ def update(no_buku, pk, date_add, penulis, judul, tahun):
     # Pengaman: kalau panjang record tidak 549 byte, lebih baik menolak daripada merusak file.
     if len(data) != Database.RECORD_LENGTH:
         print(f"Error: panjang record {len(data)} byte, seharusnya {Database.RECORD_LENGTH}")
-        return
+        return 
 
     try:
         # mode biner: tidak ada konversi newline sama sekali
@@ -76,3 +77,28 @@ def update(no_buku, pk, date_add, penulis, judul, tahun):
             file.write(data)
     except Exception as e:
         print("Error: ", e)
+
+def delete(no_buku):
+    try:
+        counter = 0
+        # Buka kedua file secara bersamaan di AWAL (di luar while)
+        with open(Database.DB_NAME, "r", newline="",encoding="utf-8") as file, \
+             open("file_temp.txt", "w", newline="",encoding="utf-8") as temp_file:
+             
+            while True:
+                lines = file.readline()
+                if len(lines) == 0:
+                    break
+                elif counter == no_buku - 1:
+                    pass  # Lewati baris yang dihapus
+                else:
+                    # Di sini Anda tinggal menulis saja, tidak perlu open() lagi
+                    temp_file.write(lines)
+                
+                counter += 1
+            
+        # Proses replace dilakukan setelah blok 'with' selesai dan file tertutup
+        os.replace("file_temp.txt", Database.DB_NAME)
+    except Exception as e:
+        print("Error: ", e)
+

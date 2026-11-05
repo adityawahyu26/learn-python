@@ -1,2 +1,4 @@
 **/__pycache__/
 *.pyc
+program_perpustakaan/data.txt
+program_perpustakaan/file_temp.txt
