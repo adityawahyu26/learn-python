@@ -41,7 +41,7 @@ if __name__ == "__main__":
             case "1":CRUD.read_data()
             case "2":CRUD.create_data()
             case "3":CRUD.update_data()
-            case "4":print("DELETE DATA")
+            case "4":CRUD.delete_data()
 
         # membuat option untuk melanjutkan / menghentikan program
         confirm = input("apa anda ingin keluar dari program (y/n): ")

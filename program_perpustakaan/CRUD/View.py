@@ -105,3 +105,36 @@ def update_data():
     operasi.update(no_buku,pk,date_add,penulis,judul,tahun)
 
     print("\nData berhasil diupdate!\n")
+
+def delete_data():
+    read_data()
+    while True:
+        try:
+           no_buku = int(input("\nmasukan no. buku yang ingin dihapus: "))
+        except ValueError:
+           print("masukkan angka!")
+           continue
+        data_buku = operasi.read(index=no_buku)
+        if data_buku:
+            break
+        print("masukkan input yang valid!")
+
+    data_break = data_buku.split(',')
+    pk = data_break[0]
+    date_add = data_break[1]
+    penulis = data_break[2]
+    judul = data_break[3]
+    tahun = data_break[4].strip()
+
+    print("\nData Buku")
+    print("-"*30)
+    print(f"Judul Buku\t: {judul:.50}")
+    print(f"Penulis Buku\t: {penulis:.30}")
+    print(f"Tahun Terbit\t: {tahun:.10}")
+
+    confirm = input("\nApakah Anda yakin ingin menghapus buku ini? (y/n): ")
+    if confirm.lower() == 'y':
+        operasi.delete(no_buku)
+        print("\nData berhasil dihapus!\n")
+    else:
+        print("\nPenghapusan dibatalkan.\n")
